@@ -1,28 +1,27 @@
-def backtrack_recursive(maze, start, end, visited=None, path=None):
-    if visited is None:
-        visited = set()
-    if path is None:
-        path = []
+def backtrack_iterative(maze, start, end):
+    stack = [(start, [start])]  # Stack stores (current node, path)
+    print("Initial stack:", stack)  # Debug: Initial stack state
+    visited = set()
 
-    # Add current node to path
-    path.append(start)
-    visited.add(start)
+    while stack:
+        current, path = stack.pop()  # Get the last node in the stack
+        print("Current node:", current)
+        print("Current path:", path)
+        print("Visited nodes:", visited)
+        if current == end:
+            return path  # If we reach the destination, return the path
 
-    # Base case: If start reaches end, return path
-    if start == end:
-        return path
+        if current not in visited:
+            visited.add(current)
+            print("Visited:", visited)  # Debug: Mark current node as visited
 
-    # Explore neighbors recursively
-    for neighbor in maze.get(start, []):
-        if neighbor not in visited:
-            result = backtrack_recursive(maze, neighbor, end, visited, path)  # Recursive call
-            
-            if result:  # If a valid path is found, return it
-                return result
+            for neighbor in maze.get(current, []):  # Process neighbors
+                if neighbor not in visited:
+                    print("Exploring neighbor:", neighbor)
+                    stack.append((neighbor, path + [neighbor]))  # Add new path to stack
+                    print("Stack updated:", stack)
 
-    # If no path is found, backtrack
-    path.pop()
-    return None
+    return None  # No path found
 
 # Define the maze
 maze = {
@@ -36,6 +35,6 @@ maze = {
     7: [8]
 }
 
-# Run recursive backtracking search
-path = backtrack_recursive(maze, 0, 8)
+# Run iterative backtracking search
+path = backtrack_iterative(maze, 0, 8)
 print("Path found:", path if path else "No path found")
