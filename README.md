@@ -1,3 +1,6 @@
-#Learning Module
+# Learning Module
 
-##Learning A.I
+## Learning A.I
+
+1. CNN using pytorch
+2. Least Cost path using backtracking
