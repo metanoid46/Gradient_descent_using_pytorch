@@ -4,3 +4,4 @@
 
 1. CNN using pytorch
 2. Least Cost path using backtracking
+#. Knn using numpy
